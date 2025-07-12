@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Crestron Home",
+        "description": "Configure your Crestron Home system",
+        "data": {
+          "host": "Host (IP address or hostname)",
+          "api_token": "API Token",
+          "polling_interval": "Polling Interval (seconds)",
+          "poll_sensors": "Poll Sensor State"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to Crestron Home system",
+      "invalid_auth": "Invalid authentication credentials",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "Crestron Home system is already configured"
+    }
+  }
+}

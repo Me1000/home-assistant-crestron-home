@@ -1,0 +1,317 @@
+{
+  "devices": [
+    {
+      "level": 0,
+      "id": 1060,
+      "name": "Downlight",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1058
+    },
+    {
+      "level": 0,
+      "id": 1065,
+      "name": "Accent",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1058
+    },
+    {
+      "level": 0,
+      "id": 1068,
+      "name": "Pendant",
+      "subType": "Switch",
+      "connectionStatus": "online",
+      "roomId": 1058
+    },
+    {
+      "level": 0,
+      "id": 1094,
+      "name": "Cooking (not working)",
+      "subType": "Switch",
+      "connectionStatus": "online",
+      "roomId": 53734
+    },
+    {
+      "level": 0,
+      "id": 1088,
+      "name": "Island",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 53734
+    },
+    {
+      "level": 0,
+      "id": 1091,
+      "name": "Downlights",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 53734
+    },
+    {
+      "level": 0,
+      "id": 1111,
+      "name": "General",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1003
+    },
+    {
+      "level": 0,
+      "id": 1116,
+      "name": "Accents",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1003
+    },
+    {
+      "level": 0,
+      "id": 1122,
+      "name": "Unused -",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1003
+    },
+    {
+      "level": 0,
+      "id": 1125,
+      "name": "WC",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1004
+    },
+    {
+      "level": 0,
+      "id": 1130,
+      "name": "Accents",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1004
+    },
+    {
+      "level": 0,
+      "id": 1133,
+      "name": "General",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1004
+    },
+    {
+      "level": 0,
+      "id": 1136,
+      "name": "Accent",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1004
+    },
+    {
+      "level": 0,
+      "id": 1139,
+      "name": "Pendants",
+      "subType": "Switch",
+      "connectionStatus": "online",
+      "roomId": 1004
+    },
+    {
+      "level": 0,
+      "id": 1071,
+      "name": "Downlights - Rear",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1005
+    },
+    {
+      "level": 0,
+      "id": 1074,
+      "name": "Downlights - Front",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1005
+    },
+    {
+      "level": 0,
+      "id": 1077,
+      "name": "Wallwasher",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1006
+    },
+    {
+      "level": 0,
+      "id": 1085,
+      "name": "Downlights",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1006
+    },
+    {
+      "level": 0,
+      "id": 1082,
+      "name": "Pendant",
+      "subType": "Switch",
+      "connectionStatus": "online",
+      "roomId": 1006
+    },
+    {
+      "level": 0,
+      "id": 1097,
+      "name": "Downlights",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1007
+    },
+    {
+      "level": 0,
+      "id": 1102,
+      "name": "Pendant",
+      "subType": "Switch",
+      "connectionStatus": "online",
+      "roomId": 1007
+    },
+    {
+      "level": 0,
+      "id": 1037,
+      "name": "Accent",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1008
+    },
+    {
+      "level": 0,
+      "id": 1042,
+      "name": "Exterior",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1008
+    },
+    {
+      "level": 0,
+      "id": 1045,
+      "name": "General",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1008
+    },
+    {
+      "level": 0,
+      "id": 1024,
+      "name": "Pendants",
+      "subType": "Switch",
+      "connectionStatus": "offline",
+      "roomId": 1009
+    },
+    {
+      "level": 0,
+      "id": 1031,
+      "name": "Accent",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1009
+    },
+    {
+      "level": 0,
+      "id": 1034,
+      "name": "Downlight",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1009
+    },
+    {
+      "level": 0,
+      "id": 1119,
+      "name": "Downlights",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1010
+    },
+    {
+      "level": 0,
+      "id": 1054,
+      "name": "General",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1047
+    },
+    {
+      "level": 65535,
+      "id": 1105,
+      "name": "1",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1144
+    },
+    {
+      "level": 65535,
+      "id": 1108,
+      "name": "3",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1144
+    },
+    {
+      "level": 0,
+      "id": 1049,
+      "name": "4",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1144
+    },
+    {
+      "level": 0,
+      "id": 1192,
+      "name": "5 Emergency Exit",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1144
+    },
+    {
+      "level": 0,
+      "id": 1195,
+      "name": "Emergency Exit Stairs",
+      "subType": "Dimmer",
+      "connectionStatus": "online",
+      "roomId": 1144
+    },
+    {
+      "id": 1178,
+      "name": "Entry Hall Occ",
+      "type": "sensor",
+      "subType": "OccupancySensor",
+      "connectionStatus": "online",
+      "roomId": 1005
+    },
+    {
+      "id": 1180,
+      "name": "Master Bath Occ Vac",
+      "type": "sensor",
+      "subType": "OccupancySensor",
+      "connectionStatus": "online",
+      "roomId": 1004
+    },
+    {
+      "id": 1182,
+      "name": "Emergency Stairwell Occ",
+      "type": "sensor",
+      "subType": "OccupancySensor",
+      "connectionStatus": "online",
+      "roomId": 1197
+    },
+    {
+      "id": 1184,
+      "name": "Rear Hall Occ",
+      "type": "sensor",
+      "subType": "OccupancySensor",
+      "connectionStatus": "online",
+      "roomId": 1005
+    },
+    {
+      "id": 1186,
+      "name": "Rear Bath Occ Vac",
+      "type": "sensor",
+      "subType": "OccupancySensor",
+      "connectionStatus": "online",
+      "roomId": 1009
+    }
+  ],
+  "version": "2.000.0004"
+}
