@@ -4,7 +4,7 @@
   "codeowners": ["@me1000"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://github.com/me1000/crestron-home",
+  "documentation": "https://github.com/me1000/home-assistant-crestron-home",
   "integration_type": "hub",
   "iot_class": "local_polling",
   "requirements": [],
