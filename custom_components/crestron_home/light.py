@@ -165,7 +165,9 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
                 # Convert from HA range (0-255) to Crestron range (0-65535)
                 level = int(brightness * MAX_BRIGHTNESS / 255)
             else:
-                level = MAX_BRIGHTNESS
+                # Restore last saved level or default to full
+                prev = getattr(self, "_last_level", None)
+                level = prev if prev is not None else MAX_BRIGHTNESS
         else:
             # For switches, any non-zero level is full on
             level = MAX_BRIGHTNESS
@@ -182,6 +184,9 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the light off."""
         transition = kwargs.get("transition", 0)
+
+        # Preserve current brightness for next toggle
+        self._last_level = self.light_data.get("level", MAX_BRIGHTNESS)
         
         # Send command to Crestron
         await self.coordinator.async_set_light_state(
