@@ -5,9 +5,10 @@ import logging
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform
+from homeassistant.const import CONF_HOST, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
+from homeassistant.helpers import device_registry as dr
 
 from .const import DOMAIN
 from .coordinator import CrestronDataUpdateCoordinator
@@ -26,6 +27,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     except Exception as err:
         _LOGGER.exception("Error setting up Crestron Home: %s", err)
         raise ConfigEntryNotReady from err
+
+    # Create the hub device that child devices will reference
+    device_registry = dr.async_get(hass)
+    host = entry.data[CONF_HOST]
+    device_registry.async_get_or_create(
+        config_entry_id=entry.entry_id,
+        identifiers={(DOMAIN, entry.entry_id)},
+        manufacturer="Crestron",
+        model="Home Hub",
+        name=f"Crestron Home ({host})",
+    )
 
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
 

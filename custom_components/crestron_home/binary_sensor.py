@@ -71,11 +71,19 @@ class CrestronBinarySensor(CoordinatorEntity[CrestronDataUpdateCoordinator], Bin
     @property
     def device_info(self) -> DeviceInfo:
         """Return device information about this sensor."""
+        subtype = self._sensor_data.get("subType")
+        if subtype == SENSOR_SUBTYPE_OCCUPANCY:
+            model = "OccupancySensor"
+        elif subtype == SENSOR_SUBTYPE_PHOTO:
+            model = "PhotoSensor"
+        else:
+            model = "Unknown Sensor Type"
+        
         return DeviceInfo(
             identifiers={(DOMAIN, str(self._sensor_id))},
             name=self._sensor_data["name"],
             manufacturer="Crestron",
-            model=self._sensor_data.get("subType", "Sensor"),
+            model=model,
             via_device=(DOMAIN, self.coordinator.entry.entry_id),
         )
 

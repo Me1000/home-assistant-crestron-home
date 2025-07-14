@@ -73,11 +73,19 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
     @property
     def device_info(self) -> DeviceInfo:
         """Return device information about this light."""
+        subtype = self._light_data.get("subType")
+        if subtype == LIGHT_SUBTYPE_DIMMER:
+            model = "Dimmer"
+        elif subtype == LIGHT_SUBTYPE_SWITCH:
+            model = "Switch"
+        else:
+            model = "Unknown Light Type"
+        
         return DeviceInfo(
             identifiers={(DOMAIN, str(self._light_id))},
             name=self._light_data["name"],
             manufacturer="Crestron",
-            model=self._light_data.get("subType", "Light"),
+            model=model,
             via_device=(DOMAIN, self.coordinator.entry.entry_id),
         )
 
