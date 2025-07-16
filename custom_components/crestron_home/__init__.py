@@ -15,7 +15,7 @@ from .coordinator import CrestronDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS: list[Platform] = [Platform.LIGHT, Platform.BINARY_SENSOR]
+PLATFORMS: list[Platform] = [Platform.LIGHT, Platform.BINARY_SENSOR, Platform.SCENE]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -43,7 +43,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
-    entry.async_on_unload(entry.add_update_listener(async_reload_entry))
+    entry.async_on_unload(entry.add_update_listener(async_options_updated))
 
     return True
 
@@ -54,6 +54,14 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok
+
+
+async def async_options_updated(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Handle options update."""
+    coordinator: CrestronDataUpdateCoordinator = hass.data[DOMAIN].get(entry.entry_id)
+    if coordinator:
+        # Update scene entities based on new configuration
+        await coordinator.async_update_scene_entities()
 
 
 async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:

@@ -13,7 +13,16 @@ from homeassistant.data_entry_flow import FlowResult
 from homeassistant.exceptions import HomeAssistantError
 
 from .api import CrestronAPI, CrestronAuthError, CrestronConnectionError
-from .const import CONF_API_TOKEN, CONF_POLL_SENSORS, CONF_POLLING_INTERVAL, DEFAULT_POLLING_INTERVAL, DOMAIN
+from .const import (
+    CONF_API_TOKEN,
+    CONF_IMPORT_GENERIC_IO_SCENES,
+    CONF_IMPORT_LIGHT_SCENES,
+    CONF_IMPORT_MEDIA_SCENES,
+    CONF_POLL_SENSORS,
+    CONF_POLLING_INTERVAL,
+    DEFAULT_POLLING_INTERVAL,
+    DOMAIN,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -25,6 +34,9 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
             vol.Coerce(int), vol.Range(min=5, max=300)
         ),
         vol.Optional(CONF_POLL_SENSORS, default=False): bool,
+        vol.Optional(CONF_IMPORT_MEDIA_SCENES, default=False): bool,
+        vol.Optional(CONF_IMPORT_LIGHT_SCENES, default=False): bool,
+        vol.Optional(CONF_IMPORT_GENERIC_IO_SCENES, default=True): bool,
     }
 )
 
@@ -148,6 +160,27 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                         default=self.config_entry.options.get(
                             CONF_POLL_SENSORS,
                             self.config_entry.data.get(CONF_POLL_SENSORS, False)
+                        ),
+                    ): bool,
+                    vol.Optional(
+                        CONF_IMPORT_MEDIA_SCENES,
+                        default=self.config_entry.options.get(
+                            CONF_IMPORT_MEDIA_SCENES,
+                            self.config_entry.data.get(CONF_IMPORT_MEDIA_SCENES, False)
+                        ),
+                    ): bool,
+                    vol.Optional(
+                        CONF_IMPORT_LIGHT_SCENES,
+                        default=self.config_entry.options.get(
+                            CONF_IMPORT_LIGHT_SCENES,
+                            self.config_entry.data.get(CONF_IMPORT_LIGHT_SCENES, False)
+                        ),
+                    ): bool,
+                    vol.Optional(
+                        CONF_IMPORT_GENERIC_IO_SCENES,
+                        default=self.config_entry.options.get(
+                            CONF_IMPORT_GENERIC_IO_SCENES,
+                            self.config_entry.data.get(CONF_IMPORT_GENERIC_IO_SCENES, True)
                         ),
                     ): bool,
                 }

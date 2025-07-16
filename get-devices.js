@@ -1,7 +1,7 @@
 const https = require('https');
 const fs = require('fs');
 
-const WEB_API_TOKEN = '';
+const WEB_API_TOKEN = 'C6p5Mtp57LCP';
 const BASE_URL = 'https://10.1.1.40/cws/api';
 
 async function makeRequest(path, headers = {}) {
@@ -73,7 +73,7 @@ async function getDevices(authKey) {
 
 async function getSensors(authKey) {
   try {
-    console.log('Getting device list...');
+    console.log('Getting sensors list...');
     const response = await makeRequest('/sensors', {
       'Crestron-RestAPI-AuthKey': authKey
     });
@@ -85,26 +85,80 @@ async function getSensors(authKey) {
   }
 }
 
+async function getRooms(authKey) {
+  try {
+    console.log('Getting rooms list...');
+    const response = await makeRequest('/rooms', {
+      'Crestron-RestAPI-AuthKey': authKey
+    });
+    
+    console.log('✓ Rooms list retrieved');
+    return response;
+  } catch (error) {
+    throw new Error(`Failed to get rooms: ${error.message}`);
+  }
+}
+
+async function getScenes(authKey) {
+  try {
+    console.log('Getting scenes list...');
+    const response = await makeRequest('/scenes', {
+      'Crestron-RestAPI-AuthKey': authKey
+    });
+    
+    console.log('✓ Scenes list retrieved');
+    return response;
+  } catch (error) {
+    throw new Error(`Failed to get scenes: ${error.message}`);
+  }
+}
+
 async function main() {
   try {
     console.log(`Connecting to Crestron Home at ${BASE_URL}...`);
     
     const authKey = await getAuthKey();
-    const devices = await getSensors(authKey);
     
-    console.log('\n📱 Devices:');
-    console.log(JSON.stringify(devices, null, 2));
+    // Fetch all data in parallel
+    const [devices, sensors, rooms, scenes] = await Promise.all([
+      getDevices(authKey),
+      getSensors(authKey),
+      getRooms(authKey),
+      getScenes(authKey)
+    ]);
     
+    // Combine all data into a single object
+    const allData = {
+      devices: devices,
+      sensors: sensors,
+      rooms: rooms,
+      scenes: scenes,
+      timestamp: new Date().toISOString()
+    };
+    
+    console.log('\n📱 Complete Crestron Home Data:');
+    console.log(JSON.stringify(allData, null, 2));
+    
+    // Log summary counts
     if (devices.devices && Array.isArray(devices.devices)) {
       console.log(`\n📊 Total devices found: ${devices.devices.length}`);
     }
+    if (sensors.devices && Array.isArray(sensors.devices)) {
+      console.log(`📊 Total sensors found: ${sensors.devices.length}`);
+    }
+    if (rooms.rooms && Array.isArray(rooms.rooms)) {
+      console.log(`📊 Total rooms found: ${rooms.rooms.length}`);
+    }
+    if (scenes.scenes && Array.isArray(scenes.scenes)) {
+      console.log(`📊 Total scenes found: ${scenes.scenes.length}`);
+    }
     
-    // Write devices to JSON file
+    // Write all data to JSON file
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const filename = `devices-${timestamp}.json`;
+    const filename = `crestron-home-data-${timestamp}.json`;
     
-    fs.writeFileSync(filename, JSON.stringify(devices, null, 2));
-    console.log(`\n💾 Devices saved to: ${filename}`);
+    fs.writeFileSync(filename, JSON.stringify(allData, null, 2));
+    console.log(`\n💾 All data saved to: ${filename}`);
     
   } catch (error) {
     console.error('❌ Error:', error.message);
@@ -116,4 +170,4 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { getAuthKey, getDevices };
+module.exports = { getAuthKey, getDevices, getSensors, getRooms, getScenes };

@@ -68,10 +68,18 @@ class CrestronAPI:
         """Get all sensors from the Crestron Home system."""
         return await self._make_authenticated_request("GET", "/sensors")
 
+    async def async_get_scenes(self) -> dict[str, Any]:
+        """Get all scenes from the Crestron Home system."""
+        return await self._make_authenticated_request("GET", "/scenes")
+
     async def async_set_light_state(self, lights: list[dict[str, Any]]) -> dict[str, Any]:
         """Set the state of one or more lights."""
         payload = {"lights": lights}
         return await self._make_authenticated_request("POST", "/lights/SetState", json=payload)
+
+    async def async_recall_scene(self, scene_id: int) -> dict[str, Any]:
+        """Recall a scene by ID."""
+        return await self._make_authenticated_request("POST", f"/scenes/recall/{scene_id}")
 
     async def _make_authenticated_request(self, method: str, path: str, **kwargs) -> dict[str, Any]:
         """Make an authenticated request with automatic retry on auth failure."""

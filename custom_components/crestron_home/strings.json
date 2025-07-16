@@ -8,7 +8,10 @@
           "host": "Host (IP address or hostname)",
           "api_token": "API Token",
           "polling_interval": "Polling Interval (seconds)",
-          "poll_sensors": "Poll Sensor State"
+          "poll_sensors": "Poll Sensor State",
+          "import_media_scenes": "Import Media Scenes",
+          "import_light_scenes": "Import Light Scenes",
+          "import_generic_io_scenes": "Import GenericIO Scenes"
         }
       }
     },
