@@ -174,7 +174,10 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
         
         # Send command to Crestron
         await self.coordinator.async_set_light_state(
-            self._light_id, level, int(transition * 1000)
+            # Crestron documents the transition time as milliseconds, but I'm pretty sure
+            # it's actually just centisecond?? So we multiply the seconds supplied by HA by 100.
+            # Either that or we're off by a factor of 10 somewhere else.
+            self._light_id, level, int(transition * 100)
         )
         
         # Update local state immediately for responsive UI
@@ -190,7 +193,10 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
         
         # Send command to Crestron
         await self.coordinator.async_set_light_state(
-            self._light_id, 0, int(transition * 1000)
+            # Crestron documents the transition time as milliseconds, but I'm pretty sure
+            # it's actually just centisecond?? So we multiply the seconds supplied by HA by 100.
+            # Either that or we're off by a factor of 10 somewhere else.
+            self._light_id, 0, int(transition * 100)
         )
         
         # Update local state immediately for responsive UI
