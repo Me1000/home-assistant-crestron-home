@@ -1,0 +1,1019 @@
+{
+  "devices": {
+    "devices": [
+      {
+        "level": 0,
+        "id": 1060,
+        "name": "Downlight",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1058
+      },
+      {
+        "level": 0,
+        "id": 1065,
+        "name": "Accent",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1058
+      },
+      {
+        "level": 0,
+        "id": 1068,
+        "name": "Pendant",
+        "subType": "Switch",
+        "connectionStatus": "online",
+        "roomId": 1058
+      },
+      {
+        "level": 0,
+        "id": 1094,
+        "name": "Cooking (not working)",
+        "subType": "Switch",
+        "connectionStatus": "online",
+        "roomId": 53734
+      },
+      {
+        "level": 0,
+        "id": 1088,
+        "name": "Island",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 53734
+      },
+      {
+        "level": 0,
+        "id": 1091,
+        "name": "Downlights",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 53734
+      },
+      {
+        "level": 0,
+        "id": 1111,
+        "name": "General",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1003
+      },
+      {
+        "level": 0,
+        "id": 1116,
+        "name": "Accents",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1003
+      },
+      {
+        "level": 0,
+        "id": 1122,
+        "name": "Unused -",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1003
+      },
+      {
+        "level": 0,
+        "id": 1125,
+        "name": "WC",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1004
+      },
+      {
+        "level": 0,
+        "id": 1130,
+        "name": "Accents",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1004
+      },
+      {
+        "level": 0,
+        "id": 1133,
+        "name": "General",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1004
+      },
+      {
+        "level": 0,
+        "id": 1136,
+        "name": "Accent",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1004
+      },
+      {
+        "level": 0,
+        "id": 1139,
+        "name": "Pendants",
+        "subType": "Switch",
+        "connectionStatus": "online",
+        "roomId": 1004
+      },
+      {
+        "level": 0,
+        "id": 1071,
+        "name": "Downlights - Rear",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1005
+      },
+      {
+        "level": 0,
+        "id": 1074,
+        "name": "Downlights - Front",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1005
+      },
+      {
+        "level": 0,
+        "id": 1077,
+        "name": "Wallwasher",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1006
+      },
+      {
+        "level": 0,
+        "id": 1085,
+        "name": "Downlights",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1006
+      },
+      {
+        "level": 0,
+        "id": 1082,
+        "name": "Pendant",
+        "subType": "Switch",
+        "connectionStatus": "online",
+        "roomId": 1006
+      },
+      {
+        "level": 0,
+        "id": 1097,
+        "name": "Downlights",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1007
+      },
+      {
+        "level": 0,
+        "id": 1102,
+        "name": "Pendant",
+        "subType": "Switch",
+        "connectionStatus": "online",
+        "roomId": 1007
+      },
+      {
+        "level": 0,
+        "id": 1037,
+        "name": "Accent",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1008
+      },
+      {
+        "level": 0,
+        "id": 1042,
+        "name": "Exterior",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1008
+      },
+      {
+        "level": 0,
+        "id": 1045,
+        "name": "General",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1008
+      },
+      {
+        "level": 0,
+        "id": 1024,
+        "name": "Pendants",
+        "subType": "Switch",
+        "connectionStatus": "offline",
+        "roomId": 1009
+      },
+      {
+        "level": 0,
+        "id": 1031,
+        "name": "Accent",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1009
+      },
+      {
+        "level": 0,
+        "id": 1034,
+        "name": "Downlight",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1009
+      },
+      {
+        "level": 0,
+        "id": 1119,
+        "name": "Downlights",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1010
+      },
+      {
+        "level": 0,
+        "id": 1054,
+        "name": "General",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1047
+      },
+      {
+        "level": 0,
+        "id": 1105,
+        "name": "1",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1144
+      },
+      {
+        "level": 65535,
+        "id": 1108,
+        "name": "3",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1144
+      },
+      {
+        "level": 0,
+        "id": 1049,
+        "name": "4",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1144
+      },
+      {
+        "level": 0,
+        "id": 1192,
+        "name": "5 Emergency Exit",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1144
+      },
+      {
+        "level": 0,
+        "id": 1195,
+        "name": "Emergency Exit Stairs",
+        "subType": "Dimmer",
+        "connectionStatus": "online",
+        "roomId": 1144
+      },
+      {
+        "id": 1178,
+        "name": "Entry Hall Occ",
+        "type": "sensor",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1005
+      },
+      {
+        "id": 1180,
+        "name": "Master Bath Occ Vac",
+        "type": "sensor",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1004
+      },
+      {
+        "id": 1182,
+        "name": "Emergency Stairwell Occ",
+        "type": "sensor",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1197
+      },
+      {
+        "id": 1184,
+        "name": "Rear Hall Occ",
+        "type": "sensor",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1005
+      },
+      {
+        "id": 1186,
+        "name": "Rear Bath Occ Vac",
+        "type": "sensor",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1009
+      },
+      {
+        "id": 54805,
+        "name": "Vista 128 Security System",
+        "type": "security Device",
+        "connectionStatus": "online",
+        "roomId": 1204
+      }
+    ],
+    "version": "2.000.0004"
+  },
+  "sensors": {
+    "sensors": [
+      {
+        "presence": "Vacant",
+        "id": 1178,
+        "name": "Entry Hall Occ",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1005
+      },
+      {
+        "presence": "Vacant",
+        "id": 1180,
+        "name": "Master Bath Occ Vac",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1004
+      },
+      {
+        "presence": "Vacant",
+        "id": 1182,
+        "name": "Emergency Stairwell Occ",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1197
+      },
+      {
+        "presence": "Vacant",
+        "id": 1184,
+        "name": "Rear Hall Occ",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1005
+      },
+      {
+        "presence": "Vacant",
+        "id": 1186,
+        "name": "Rear Bath Occ Vac",
+        "subType": "OccupancySensor",
+        "connectionStatus": "online",
+        "roomId": 1009
+      }
+    ],
+    "version": "2.000.0004"
+  },
+  "rooms": {
+    "rooms": [
+      {
+        "id": 1058,
+        "name": "Office Bathroom"
+      },
+      {
+        "id": 1001,
+        "name": "Whole House"
+      },
+      {
+        "id": 53734,
+        "name": "Kitchen"
+      },
+      {
+        "id": 1003,
+        "name": "Master Bedroom"
+      },
+      {
+        "id": 1004,
+        "name": "Master Bath"
+      },
+      {
+        "id": 1005,
+        "name": "Hall"
+      },
+      {
+        "id": 1006,
+        "name": "Living Area"
+      },
+      {
+        "id": 1007,
+        "name": "Stairs"
+      },
+      {
+        "id": 1008,
+        "name": "Rear Bedroom"
+      },
+      {
+        "id": 1009,
+        "name": "Rear Bathroom"
+      },
+      {
+        "id": 1010,
+        "name": "Terrace"
+      },
+      {
+        "id": 1197,
+        "name": "Emergency Exit Stairwell"
+      },
+      {
+        "id": 1047,
+        "name": "Office"
+      },
+      {
+        "id": 1204,
+        "name": "Equipment"
+      },
+      {
+        "id": 1144,
+        "name": "Unused Dimmers (Keypads Only)"
+      }
+    ],
+    "version": "2.000.0004"
+  },
+  "scenes": {
+    "scenes": [
+      {
+        "status": false,
+        "id": 1026,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1001
+      },
+      {
+        "status": false,
+        "id": 1027,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1001
+      },
+      {
+        "status": false,
+        "id": 1028,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1009
+      },
+      {
+        "status": false,
+        "id": 1029,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1009
+      },
+      {
+        "status": false,
+        "id": 1039,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1008
+      },
+      {
+        "status": true,
+        "id": 1040,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1008
+      },
+      {
+        "status": false,
+        "id": 1051,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1005
+      },
+      {
+        "status": true,
+        "id": 1052,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1005
+      },
+      {
+        "status": false,
+        "id": 1056,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1047
+      },
+      {
+        "status": true,
+        "id": 1057,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1047
+      },
+      {
+        "status": false,
+        "id": 1062,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1058
+      },
+      {
+        "status": true,
+        "id": 1063,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1058
+      },
+      {
+        "status": false,
+        "id": 1079,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": true,
+        "id": 1080,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 1099,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1007
+      },
+      {
+        "status": true,
+        "id": 1100,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1007
+      },
+      {
+        "status": false,
+        "id": 1113,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1003
+      },
+      {
+        "status": true,
+        "id": 1114,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1003
+      },
+      {
+        "status": false,
+        "id": 1127,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1004
+      },
+      {
+        "status": true,
+        "id": 1128,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1004
+      },
+      {
+        "status": false,
+        "id": 1145,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1144
+      },
+      {
+        "status": false,
+        "id": 1146,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1144
+      },
+      {
+        "status": false,
+        "id": 1187,
+        "name": "Dim",
+        "type": "Lighting",
+        "roomId": 1004
+      },
+      {
+        "status": false,
+        "id": 1188,
+        "name": "Dim",
+        "type": "Lighting",
+        "roomId": 1009
+      },
+      {
+        "status": false,
+        "id": 1231,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 1010
+      },
+      {
+        "status": true,
+        "id": 1232,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 1010
+      },
+      {
+        "status": false,
+        "id": 1233,
+        "name": "All Dim",
+        "type": "Lighting",
+        "roomId": 1001
+      },
+      {
+        "status": false,
+        "id": 1251,
+        "name": "Depart",
+        "type": "Lighting",
+        "roomId": 1001
+      },
+      {
+        "status": false,
+        "id": 1255,
+        "name": "Low",
+        "type": "Lighting",
+        "roomId": 1003
+      },
+      {
+        "status": false,
+        "id": 1257,
+        "name": "BRIGHT",
+        "type": "Lighting",
+        "roomId": 1003
+      },
+      {
+        "status": false,
+        "id": 1258,
+        "name": "MEDIUM",
+        "type": "Lighting",
+        "roomId": 1003
+      },
+      {
+        "status": false,
+        "id": 1259,
+        "name": "SLEEP",
+        "type": "Lighting",
+        "roomId": 1003
+      },
+      {
+        "status": false,
+        "id": 52004,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1009
+      },
+      {
+        "status": false,
+        "id": 52005,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1008
+      },
+      {
+        "status": false,
+        "id": 52006,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1005
+      },
+      {
+        "status": false,
+        "id": 52007,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1047
+      },
+      {
+        "status": false,
+        "id": 52008,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1058
+      },
+      {
+        "status": false,
+        "id": 52009,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 52010,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1007
+      },
+      {
+        "status": false,
+        "id": 52011,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1003
+      },
+      {
+        "status": false,
+        "id": 52012,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1004
+      },
+      {
+        "status": false,
+        "id": 52013,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1144
+      },
+      {
+        "status": false,
+        "id": 52014,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 1010
+      },
+      {
+        "status": false,
+        "id": 53354,
+        "name": "Night",
+        "type": "Lighting",
+        "roomId": 1005
+      },
+      {
+        "status": false,
+        "id": 53355,
+        "name": "Daytime",
+        "type": "Lighting",
+        "roomId": 1005
+      },
+      {
+        "status": false,
+        "id": 53401,
+        "name": "Evening",
+        "type": "Lighting",
+        "roomId": 1005
+      },
+      {
+        "status": false,
+        "id": 53402,
+        "name": "Daytime",
+        "type": "Lighting",
+        "roomId": 1047
+      },
+      {
+        "status": false,
+        "id": 53403,
+        "name": "Evening",
+        "type": "Lighting",
+        "roomId": 1047
+      },
+      {
+        "status": false,
+        "id": 53413,
+        "name": "Morning",
+        "type": "Lighting",
+        "roomId": 1004
+      },
+      {
+        "status": false,
+        "id": 53425,
+        "name": "Morning",
+        "type": "Lighting",
+        "roomId": 1009
+      },
+      {
+        "status": false,
+        "id": 53426,
+        "name": "Day",
+        "type": "Lighting",
+        "roomId": 1009
+      },
+      {
+        "status": false,
+        "id": 53427,
+        "name": "Night",
+        "type": "Lighting",
+        "roomId": 1047
+      },
+      {
+        "status": false,
+        "id": 53664,
+        "name": "Soft General Light",
+        "type": "Lighting",
+        "roomId": 1007
+      },
+      {
+        "status": false,
+        "id": 53665,
+        "name": "Bright General Light",
+        "type": "Lighting",
+        "roomId": 1007
+      },
+      {
+        "status": false,
+        "id": 53666,
+        "name": "Medium General Lights",
+        "type": "Lighting",
+        "roomId": 1007
+      },
+      {
+        "status": false,
+        "id": 53730,
+        "name": "Medium",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 53731,
+        "name": "Low",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 53732,
+        "name": "Very low",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 53733,
+        "name": "Living Dark",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 53735,
+        "name": "All On",
+        "type": "Lighting",
+        "roomId": 53734
+      },
+      {
+        "status": true,
+        "id": 53736,
+        "name": "All Off",
+        "type": "Lighting",
+        "roomId": 53734
+      },
+      {
+        "status": false,
+        "id": 53737,
+        "name": "Circadian",
+        "type": "Lighting",
+        "roomId": 53734
+      },
+      {
+        "status": false,
+        "id": 53738,
+        "name": "Bright",
+        "type": "Lighting",
+        "roomId": 53734
+      },
+      {
+        "status": false,
+        "id": 53739,
+        "name": "Medium",
+        "type": "Lighting",
+        "roomId": 53734
+      },
+      {
+        "status": false,
+        "id": 53740,
+        "name": "Low",
+        "type": "Lighting",
+        "roomId": 53734
+      },
+      {
+        "status": false,
+        "id": 53741,
+        "name": "Island Only",
+        "type": "Lighting",
+        "roomId": 53734
+      },
+      {
+        "status": false,
+        "id": 53832,
+        "name": "Bright",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 53833,
+        "name": "Very Bright",
+        "type": "Lighting",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 53883,
+        "name": "Dim",
+        "type": "Lighting",
+        "roomId": 1008
+      },
+      {
+        "status": false,
+        "id": 53884,
+        "name": "Medium",
+        "type": "Lighting",
+        "roomId": 1008
+      },
+      {
+        "status": false,
+        "id": 53885,
+        "name": "Bright",
+        "type": "Lighting",
+        "roomId": 1008
+      },
+      {
+        "status": false,
+        "id": 54389,
+        "name": "Island Only Low",
+        "type": "Lighting",
+        "roomId": 53734
+      },
+      {
+        "status": true,
+        "id": 1256,
+        "name": "Media Off",
+        "type": "Media",
+        "roomId": 1001
+      },
+      {
+        "status": false,
+        "id": 52590,
+        "name": "Tv On Apple",
+        "type": "Media",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 52593,
+        "name": "Sonos On",
+        "type": "Media",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 53389,
+        "name": "Apple TV",
+        "type": "Media",
+        "roomId": 1003
+      },
+      {
+        "status": false,
+        "id": 53390,
+        "name": "Sonos",
+        "type": "Media",
+        "roomId": 1003
+      },
+      {
+        "status": false,
+        "id": 1165,
+        "name": "Open TV LIft",
+        "type": "genericIO",
+        "roomId": 1006
+      },
+      {
+        "status": false,
+        "id": 1166,
+        "name": "Close TV LIft",
+        "type": "genericIO",
+        "roomId": 1006
+      }
+    ],
+    "version": "2.000.0004"
+  },
+  "securityDevices": {
+    "securityDevices": [
+      {
+        "availableStates": [
+          "ArmStay",
+          "ArmAway",
+          "ArmInstant",
+          "EntryDelay",
+          "ExitDelay",
+          "Disarmed",
+          "Fire",
+          "Alarm",
+          "Unknown"
+        ],
+        "currentState": "Disarmed",
+        "id": 54805,
+        "name": "Vista 128 Security System",
+        "type": "security Device",
+        "connectionStatus": "online",
+        "roomId": 1204
+      }
+    ],
+    "version": "2.000.0004"
+  },
+  "timestamp": "2025-08-02T17:03:34.873Z"
+}

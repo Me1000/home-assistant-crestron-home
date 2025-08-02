@@ -113,6 +113,22 @@ async function getScenes(authKey) {
   }
 }
 
+async function getSecurityDevices(authKey)
+{
+  try {
+    console.log('Getting Security devices list...');
+    const response = await makeRequest('/securitydevices', {
+      'Crestron-RestAPI-AuthKey': authKey
+    });
+    
+    console.log('✓ Security devices list retrieved');
+    return response;
+  } catch (error) {
+    throw new Error(`Failed to get Security devices: ${error.message}`);
+  }
+  
+}
+
 async function main() {
   try {
     console.log(`Connecting to Crestron Home at ${BASE_URL}...`);
@@ -120,20 +136,22 @@ async function main() {
     const authKey = await getAuthKey();
     
     // Fetch all data in parallel
-    const [devices, sensors, rooms, scenes] = await Promise.all([
+    const [ devices, sensors, rooms, scenes, securityDevices ] = await Promise.all([
       getDevices(authKey),
       getSensors(authKey),
       getRooms(authKey),
-      getScenes(authKey)
+      getScenes(authKey),
+      getSecurityDevices(authKey),
     ]);
     
     // Combine all data into a single object
     const allData = {
-      devices: devices,
-      sensors: sensors,
-      rooms: rooms,
-      scenes: scenes,
-      timestamp: new Date().toISOString()
+      devices,
+      sensors,
+      rooms,
+      scenes,
+      securityDevices,
+      timestamp: new Date().toISOString(),
     };
     
     console.log('\n📱 Complete Crestron Home Data:');
