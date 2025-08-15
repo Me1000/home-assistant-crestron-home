@@ -158,7 +158,7 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the light on."""
         brightness = kwargs.get(ATTR_BRIGHTNESS)
-        transition = kwargs.get("transition", 0)
+        transition = kwargs.get("transition", 1)
         
         if self.light_data.get("subType") == LIGHT_SUBTYPE_DIMMER:
             if brightness is not None:
@@ -186,7 +186,7 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the light off."""
-        transition = kwargs.get("transition", 0)
+        transition = kwargs.get("transition", 1)
 
         # Preserve current brightness for next toggle
         self._last_level = self.light_data.get("level", MAX_BRIGHTNESS)
