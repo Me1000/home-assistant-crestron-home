@@ -244,6 +244,10 @@ class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         """Recall a scene by ID."""
         await self.api.async_recall_scene(scene_id)
 
+    async def async_set_mediaroom_source(self, media_room_id: int, media_source_id: int) -> None:
+        """Recall a scene by ID."""
+        await self.api.async_set_mediaroom_source(media_room_id, media_source_id)
+
     async def async_shutdown(self) -> None:
         """Shutdown the coordinator."""
         await self.api.async_close()

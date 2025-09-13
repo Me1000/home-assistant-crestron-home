@@ -4,15 +4,15 @@ const fs = require('fs');
 const WEB_API_TOKEN = 'C6p5Mtp57LCP';
 const BASE_URL = 'https://10.1.1.40/cws/api';
 
-async function makeRequest(path, headers = {}) {
+async function makeRequest(path, headers = {}, method = "GET") {
   return new Promise((resolve, reject) => {
     const url = new URL(BASE_URL + path);
     const options = {
       hostname: url.hostname,
       port: url.port || 443,
       path: url.pathname,
-      method: 'GET',
-      headers: headers,
+      method,
+      headers,
       rejectUnauthorized: false // Skip SSL certificate validation for local devices
     };
 
@@ -126,7 +126,37 @@ async function getSecurityDevices(authKey)
   } catch (error) {
     throw new Error(`Failed to get Security devices: ${error.message}`);
   }
-  
+}
+
+async function getMediaRooms(authKey)
+{
+  try {
+    console.log('Getting Media Room list...');
+    const response = await makeRequest('/mediarooms', {
+      'Crestron-RestAPI-AuthKey': authKey
+    });
+    
+    console.log('✓ Media rooms list retrieved');
+    return response;
+  } catch (error) {
+    throw new Error(`Failed to get media rooms: ${error.message}`);
+  }
+}
+
+async function playInLivingRoom(authKey)
+{
+  // https://10.1.1.40/cws/api/mediaroom/1003/selectsource/53750
+  try {
+    console.log("Set living room media source to Sonos");
+    const response = await makeRequest("/mediarooms/1006/selectsource/53750", {
+      "Crestron-RestAPI-AuthKey": authKey
+    }, "POST");
+    
+    console.log('✓ Media rooms list retrieved');
+    return response;
+  } catch (error) {
+    throw new Error(`Failed to get media rooms: ${error.message}`);
+  }
 }
 
 async function main() {
@@ -136,12 +166,14 @@ async function main() {
     const authKey = await getAuthKey();
     
     // Fetch all data in parallel
-    const [ devices, sensors, rooms, scenes, securityDevices ] = await Promise.all([
+    const [ devices, sensors, rooms, scenes, securityDevices, mediaRooms, playAction ] = await Promise.all([
       getDevices(authKey),
       getSensors(authKey),
       getRooms(authKey),
       getScenes(authKey),
       getSecurityDevices(authKey),
+      getMediaRooms(authKey),
+      playInLivingRoom(authKey),
     ]);
     
     // Combine all data into a single object
@@ -151,6 +183,8 @@ async function main() {
       rooms,
       scenes,
       securityDevices,
+      mediaRooms,
+      playAction,
       timestamp: new Date().toISOString(),
     };
     

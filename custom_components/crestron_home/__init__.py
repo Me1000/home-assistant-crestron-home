@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
 
+import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.const import CONF_HOST, Platform
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryNotReady
-from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import device_registry as dr, config_validation as cv
 
 from .const import DOMAIN
 from .coordinator import CrestronDataUpdateCoordinator
@@ -17,6 +18,12 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS: list[Platform] = [Platform.LIGHT, Platform.BINARY_SENSOR, Platform.SCENE]
 
+SERVICE_SET_MEDIA_ROOM_SCHEMA = vol.Schema(
+    {
+        vol.Required("media_room_id"): cv.positive_int,
+        vol.Required("source_id"): cv.positive_int,
+    }
+)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Crestron Home from a config entry."""
@@ -42,6 +49,20 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+
+    # Create a callable service action for setting the media room.
+    async def handle_set_media_room(call: ServiceCall) -> None:
+        media_room_id = call.data["media_room_id"]
+        source_id = call.data["source_id"]
+
+        return await coordinator.async_set_mediaroom_source(media_room_id=media_room_id, media_source_id=source_id)
+
+    hass.services.async_register(
+        DOMAIN,
+        "set_mediaroom_source",
+        handle_set_media_room,
+        schema=SERVICE_SET_MEDIA_ROOM_SCHEMA,
+    )
 
     entry.async_on_unload(entry.add_update_listener(async_options_updated))
 

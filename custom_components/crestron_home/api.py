@@ -80,6 +80,10 @@ class CrestronAPI:
     async def async_recall_scene(self, scene_id: int) -> dict[str, Any]:
         """Recall a scene by ID."""
         return await self._make_authenticated_request("POST", f"/scenes/recall/{scene_id}")
+    
+    async def async_set_mediaroom_source(self, roomID: int, sourceID: int) -> dict[str, Any]:
+        """Set a media room's source."""
+        return await self._make_authenticated_request("POST", f"/mediaroom/{roomID}/selectsource/{sourceID}")
 
     async def _make_authenticated_request(self, method: str, path: str, **kwargs) -> dict[str, Any]:
         """Make an authenticated request with automatic retry on auth failure."""
@@ -91,6 +95,8 @@ class CrestronAPI:
             
             if method == "POST":
                 headers["Content-Type"] = "application/json"
+
+            _LOGGER.debug(f"MAKING {method} CRESTRON REQUEST TO: {self.base_url}{path}")
             
             try:
                 async with async_timeout.timeout(API_TIMEOUT):
