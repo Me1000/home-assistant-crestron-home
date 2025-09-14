@@ -166,8 +166,8 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
                 level = int(brightness * MAX_BRIGHTNESS / 255)
             else:
                 # Restore last saved level or default to full
-                prev = getattr(self, "_last_level", None)
-                level = prev if prev is not None else MAX_BRIGHTNESS
+                prev = getattr(self, "_last_level", 0)
+                level = prev if prev >= 5 else MAX_BRIGHTNESS
         else:
             # For switches, any non-zero level is full on
             level = MAX_BRIGHTNESS
