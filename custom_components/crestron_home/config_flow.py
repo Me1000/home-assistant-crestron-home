@@ -44,7 +44,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
     """Validate the user input allows us to connect."""
     api = CrestronAPI(data[CONF_HOST], data[CONF_API_TOKEN])
-    
+
     try:
         await api.async_authenticate()
         lights = await api.async_get_lights()
@@ -58,7 +58,10 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
         _LOGGER.exception("Error connecting to Crestron Home: %s", err)
         raise CannotConnect from err
 
-    return {"title": f"Crestron Home ({data[CONF_HOST]})", "lights_count": len(lights.get("lights", []))}
+    return {
+        "title": f"Crestron Home ({data[CONF_HOST]})",
+        "lights_count": len(lights.get("lights", [])),
+    }
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -70,7 +73,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @callback
     def async_get_options_flow(config_entry):
         """Get the options flow for this handler."""
-        return OptionsFlowHandler(config_entry)
+        return OptionsFlowHandler()
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -108,9 +111,9 @@ class InvalidAuth(HomeAssistantError):
 class OptionsFlowHandler(config_entries.OptionsFlow):
     """Handle options flow for Crestron Home."""
 
-    def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
+    def __init__(self) -> None:
         """Initialize options flow."""
-        self.config_entry = config_entry
+        super().__init__()
 
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
@@ -137,50 +140,50 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                     vol.Required(
                         CONF_HOST,
                         default=self.config_entry.options.get(
-                            CONF_HOST,
-                            self.config_entry.data.get(CONF_HOST)
+                            CONF_HOST, self.config_entry.data.get(CONF_HOST)
                         ),
                     ): str,
                     vol.Required(
                         CONF_API_TOKEN,
                         default=self.config_entry.options.get(
-                            CONF_API_TOKEN,
-                            self.config_entry.data.get(CONF_API_TOKEN)
+                            CONF_API_TOKEN, self.config_entry.data.get(CONF_API_TOKEN)
                         ),
                     ): str,
                     vol.Optional(
                         CONF_POLLING_INTERVAL,
                         default=self.config_entry.options.get(
                             CONF_POLLING_INTERVAL,
-                            self.config_entry.data.get(CONF_POLLING_INTERVAL, DEFAULT_POLLING_INTERVAL)
+                            self.config_entry.data.get(
+                                CONF_POLLING_INTERVAL, DEFAULT_POLLING_INTERVAL
+                            ),
                         ),
-                    ): vol.All(vol.Coerce(int), vol.Range(min=5, max=300)),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=1, max=300)),
                     vol.Optional(
                         CONF_POLL_SENSORS,
                         default=self.config_entry.options.get(
                             CONF_POLL_SENSORS,
-                            self.config_entry.data.get(CONF_POLL_SENSORS, False)
+                            self.config_entry.data.get(CONF_POLL_SENSORS, False),
                         ),
                     ): bool,
                     vol.Optional(
                         CONF_IMPORT_MEDIA_SCENES,
                         default=self.config_entry.options.get(
                             CONF_IMPORT_MEDIA_SCENES,
-                            self.config_entry.data.get(CONF_IMPORT_MEDIA_SCENES, False)
+                            self.config_entry.data.get(CONF_IMPORT_MEDIA_SCENES, False),
                         ),
                     ): bool,
                     vol.Optional(
                         CONF_IMPORT_LIGHT_SCENES,
                         default=self.config_entry.options.get(
                             CONF_IMPORT_LIGHT_SCENES,
-                            self.config_entry.data.get(CONF_IMPORT_LIGHT_SCENES, False)
+                            self.config_entry.data.get(CONF_IMPORT_LIGHT_SCENES, False),
                         ),
                     ): bool,
                     vol.Optional(
                         CONF_IMPORT_GENERIC_IO_SCENES,
                         default=self.config_entry.options.get(
                             CONF_IMPORT_GENERIC_IO_SCENES,
-                            self.config_entry.data.get(CONF_IMPORT_GENERIC_IO_SCENES, True)
+                            self.config_entry.data.get(CONF_IMPORT_GENERIC_IO_SCENES, True),
                         ),
                     ): bool,
                 }
