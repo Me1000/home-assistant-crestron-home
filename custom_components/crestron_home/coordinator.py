@@ -1,8 +1,8 @@
 """DataUpdateCoordinator for Crestron Home."""
 from __future__ import annotations
 
-import asyncio
 import logging
+import time
 from datetime import timedelta
 from typing import Any
 
@@ -27,7 +27,12 @@ from .const import (
     SCENE_TYPE_MEDIA,
 )
 
+# New option keys
+CONF_GENERAL_POLLING_INTERVAL = "general_polling_interval"
+CONF_SENSOR_POLLING_INTERVAL = "sensor_polling_interval"
+
 _LOGGER = logging.getLogger(__name__)
+
 
 class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     """Class to manage fetching Crestron Home data."""
@@ -38,13 +43,26 @@ class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         api_token = entry.options.get(CONF_API_TOKEN, entry.data[CONF_API_TOKEN])
         self.api = CrestronAPI(host, api_token)
         self.entry = entry
-        
-        polling_interval = entry.options.get(
-            CONF_POLLING_INTERVAL, 
-            entry.data.get(CONF_POLLING_INTERVAL, DEFAULT_POLLING_INTERVAL)
+
+        legacy_interval = entry.options.get(
+            CONF_POLLING_INTERVAL,
+            entry.data.get(CONF_POLLING_INTERVAL, DEFAULT_POLLING_INTERVAL),
         )
-        update_interval = timedelta(seconds=polling_interval)
-        
+
+        self.general_poll_interval = entry.options.get(
+            CONF_GENERAL_POLLING_INTERVAL, legacy_interval
+        )
+        self.sensor_poll_interval = entry.options.get(
+            CONF_SENSOR_POLLING_INTERVAL, legacy_interval
+        )
+
+        update_interval = timedelta(
+            seconds=min(self.general_poll_interval, self.sensor_poll_interval)
+        )
+
+        self._last_general_poll: float = 0.0
+        self._last_sensor_poll: float = 0.0
+
         super().__init__(
             hass,
             _LOGGER,
@@ -55,38 +73,54 @@ class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     async def _async_update_data(self) -> dict[str, Any]:
         """Fetch data from Crestron Home."""
         try:
-            data = {}
-            
-            # Always fetch lights
-            lights_data = await self.api.async_get_lights()
-            data["lights"] = lights_data.get("lights", [])
-            
-            # Always fetch sensors initially, but only poll if enabled
-            poll_sensors = self.entry.options.get(
-                CONF_POLL_SENSORS, 
-                self.entry.data.get(CONF_POLL_SENSORS, False)
+            now = time.monotonic()
+            data: dict[str, Any] = {}
+
+            do_general_poll = (
+                now - self._last_general_poll >= self.general_poll_interval
             )
-            if poll_sensors:
+            do_sensor_poll = (
+                now - self._last_sensor_poll >= self.sensor_poll_interval
+            )
+
+            poll_sensors = self.entry.options.get(
+                CONF_POLL_SENSORS,
+                self.entry.data.get(CONF_POLL_SENSORS, False),
+            )
+
+            if poll_sensors and do_sensor_poll:
                 sensors_data = await self.api.async_get_sensors()
                 data["sensors"] = sensors_data.get("sensors", [])
+                self._cached_sensors = data["sensors"]
+                self._last_sensor_poll = now
             else:
-                # If not polling, provide empty sensors list but still allow platform to load
-                data["sensors"] = getattr(self, '_cached_sensors', [])
-            
-            # Always provide cached scenes (scenes don't change frequently)
-            data["scenes"] = getattr(self, '_cached_scenes', [])
-            
+                data["sensors"] = getattr(self, "_cached_sensors", [])
+
+            if do_general_poll:
+                lights_data = await self.api.async_get_lights()
+                data["lights"] = lights_data.get("lights", [])
+                self._last_general_poll = now
+            else:
+                data["lights"] = getattr(self, "_cached_lights", [])
+
+            data["scenes"] = getattr(self, "_cached_scenes", [])
+
+            self._cached_lights = data["lights"]
+
             return data
+
         except CrestronError as err:
-            raise UpdateFailed(f"Error communicating with Crestron Home: {err}") from err
+            raise UpdateFailed(
+                f"Error communicating with Crestron Home: {err}"
+            ) from err
 
     async def async_get_initial_sensors(self) -> list[dict[str, Any]]:
         """Get initial sensor data for setup, regardless of polling setting."""
         try:
             sensors_data = await self.api.async_get_sensors()
             sensors = sensors_data.get("sensors", [])
-            # Cache for non-polling mode
             self._cached_sensors = sensors
+            self._last_sensor_poll = time.monotonic()
             return sensors
         except CrestronError:
             _LOGGER.warning("Could not fetch initial sensor data")
@@ -97,11 +131,7 @@ class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         try:
             scenes_data = await self.api.async_get_scenes()
             all_scenes = scenes_data.get("scenes", [])
-            
-            # Filter scenes based on configuration
             filtered_scenes = self._filter_scenes(all_scenes)
-            
-            # Cache scenes since they don't change frequently
             self._cached_scenes = filtered_scenes
             return filtered_scenes
         except CrestronError:
@@ -112,15 +142,15 @@ class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         """Filter scenes based on configuration options."""
         import_media = self.entry.options.get(
             CONF_IMPORT_MEDIA_SCENES,
-            self.entry.data.get(CONF_IMPORT_MEDIA_SCENES, False)
+            self.entry.data.get(CONF_IMPORT_MEDIA_SCENES, False),
         )
         import_light = self.entry.options.get(
             CONF_IMPORT_LIGHT_SCENES,
-            self.entry.data.get(CONF_IMPORT_LIGHT_SCENES, False)
+            self.entry.data.get(CONF_IMPORT_LIGHT_SCENES, False),
         )
         import_generic_io = self.entry.options.get(
             CONF_IMPORT_GENERIC_IO_SCENES,
-            self.entry.data.get(CONF_IMPORT_GENERIC_IO_SCENES, True)
+            self.entry.data.get(CONF_IMPORT_GENERIC_IO_SCENES, True),
         )
 
         filtered_scenes = []

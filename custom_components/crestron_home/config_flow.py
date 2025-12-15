@@ -24,14 +24,22 @@ from .const import (
     DOMAIN,
 )
 
+# New option keys for separate intervals (keep them in const.py if you prefer)
+CONF_GENERAL_POLLING_INTERVAL = "general_polling_interval"
+CONF_SENSOR_POLLING_INTERVAL = "sensor_polling_interval"
+
+DEFAULT_GENERAL_POLLING_INTERVAL = DEFAULT_POLLING_INTERVAL
+DEFAULT_SENSOR_POLLING_INTERVAL = DEFAULT_POLLING_INTERVAL
+
 _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_HOST): str,
         vol.Required(CONF_API_TOKEN): str,
+        # Backward-compatible: keep original polling interval in the initial flow
         vol.Optional(CONF_POLLING_INTERVAL, default=DEFAULT_POLLING_INTERVAL): vol.All(
-            vol.Coerce(int), vol.Range(min=5, max=300)
+            vol.Coerce(int), vol.Range(min=1, max=300)
         ),
         vol.Optional(CONF_POLL_SENSORS, default=False): bool,
         vol.Optional(CONF_IMPORT_MEDIA_SCENES, default=False): bool,
@@ -133,6 +141,22 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             else:
                 return self.async_create_entry(title="", data=user_input)
 
+        # Migration fallback:
+        # - if new keys not set yet, use existing CONF_POLLING_INTERVAL from options/data.
+        legacy_interval = self.config_entry.options.get(
+            CONF_POLLING_INTERVAL,
+            self.config_entry.data.get(CONF_POLLING_INTERVAL, DEFAULT_POLLING_INTERVAL),
+        )
+
+        general_default = self.config_entry.options.get(
+            CONF_GENERAL_POLLING_INTERVAL,
+            legacy_interval,
+        )
+        sensor_default = self.config_entry.options.get(
+            CONF_SENSOR_POLLING_INTERVAL,
+            legacy_interval,
+        )
+
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
@@ -150,13 +174,12 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                         ),
                     ): str,
                     vol.Optional(
-                        CONF_POLLING_INTERVAL,
-                        default=self.config_entry.options.get(
-                            CONF_POLLING_INTERVAL,
-                            self.config_entry.data.get(
-                                CONF_POLLING_INTERVAL, DEFAULT_POLLING_INTERVAL
-                            ),
-                        ),
+                        CONF_GENERAL_POLLING_INTERVAL,
+                        default=general_default,
+                    ): vol.All(vol.Coerce(int), vol.Range(min=1, max=300)),
+                    vol.Optional(
+                        CONF_SENSOR_POLLING_INTERVAL,
+                        default=sensor_default,
                     ): vol.All(vol.Coerce(int), vol.Range(min=1, max=300)),
                     vol.Optional(
                         CONF_POLL_SENSORS,
