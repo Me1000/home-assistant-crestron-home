@@ -1,7 +1,7 @@
 const https = require('https');
 const fs = require('fs');
 
-const WEB_API_TOKEN = 'C6p5Mtp57LCP';
+const WEB_API_TOKEN = 'YOU TOKEN HERE';
 const BASE_URL = 'https://10.1.1.40/cws/api';
 
 async function makeRequest(path, headers = {}, method = "GET") {
