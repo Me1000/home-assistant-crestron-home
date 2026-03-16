@@ -11,9 +11,10 @@ from homeassistant.components.light import (
     LightEntityFeature,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import (
@@ -51,7 +52,7 @@ async def async_setup_entry(
     async_add_entities(entities)
 
 
-class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntity):
+class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], RestoreEntity, LightEntity):
     """Representation of a Crestron Home light."""
 
     def __init__(
@@ -65,10 +66,36 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
         self._light_data = light_data
         self._attr_unique_id = f"{DOMAIN}_light_{self._light_id}"
         self._attr_name = light_data["name"]
-        
+
+        # Track last known brightness for when light is off
+        # Initialize from current state if light is on
+        level = light_data.get("level", 0)
+        if level > 0:
+            self._last_brightness = max(1, int(level * 255 / MAX_BRIGHTNESS))
+        else:
+            self._last_brightness = 255  # Default until we know better
+
         # Set supported features based on light type
         if light_data.get("subType") == LIGHT_SUBTYPE_DIMMER:
             self._attr_supported_features = LightEntityFeature.TRANSITION
+
+    async def async_added_to_hass(self) -> None:
+        """Restore last known brightness when added to hass."""
+        await super().async_added_to_hass()
+
+        # Restore previous brightness from last HA session
+        if (last_state := await self.async_get_last_state()) is not None:
+            if (brightness := last_state.attributes.get(ATTR_BRIGHTNESS)) is not None:
+                self._last_brightness = brightness
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator."""
+        # Track brightness whenever the light is on
+        level = self.light_data.get("level", 0)
+        if level > 0:
+            self._last_brightness = max(1, int(level * 255 / MAX_BRIGHTNESS))
+        super()._handle_coordinator_update()
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -99,6 +126,10 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
 
     def _update_local_state(self, level: int) -> None:
         """Update the local light state optimistically."""
+        # Track brightness when light is on
+        if level > 0:
+            self._last_brightness = max(1, int(level * 255 / MAX_BRIGHTNESS))
+
         # Update the cached light data
         for light in self.coordinator.data.get("lights", []):
             if light["id"] == self._light_id:
@@ -119,7 +150,11 @@ class CrestronLight(CoordinatorEntity[CrestronDataUpdateCoordinator], LightEntit
         if self.light_data.get("subType") == LIGHT_SUBTYPE_DIMMER:
             # Convert from Crestron range (0-65535) to HA range (0-255)
             level = self.light_data.get("level", 0)
-            return max(1, int(level * 255 / MAX_BRIGHTNESS)) if level > 0 else 0
+            if level > 0:
+                return max(1, int(level * 255 / MAX_BRIGHTNESS))
+            else:
+                # Return last known brightness when off
+                return self._last_brightness
         return None
 
     @property
