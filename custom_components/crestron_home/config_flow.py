@@ -22,6 +22,7 @@ from .const import (
     CONF_POLLING_INTERVAL,
     DEFAULT_POLLING_INTERVAL,
     DOMAIN,
+    WEBHOOK_ID,
 )
 
 # New option keys for separate intervals (keep them in const.py if you prefer)
@@ -157,8 +158,11 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             legacy_interval,
         )
 
+        webhook_url = f"/api/webhook/{WEBHOOK_ID}"
+
         return self.async_show_form(
             step_id="init",
+            description_placeholders={"webhook_url": webhook_url},
             data_schema=vol.Schema(
                 {
                     vol.Required(

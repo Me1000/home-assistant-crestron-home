@@ -62,6 +62,7 @@ class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
         self._last_general_poll: float = 0.0
         self._last_sensor_poll: float = 0.0
+        self._force_sensor_poll: bool = False
 
         super().__init__(
             hass,
@@ -88,7 +89,10 @@ class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 self.entry.data.get(CONF_POLL_SENSORS, False),
             )
 
-            if poll_sensors and do_sensor_poll:
+            force = self._force_sensor_poll
+            self._force_sensor_poll = False
+
+            if (poll_sensors and do_sensor_poll) or force:
                 sensors_data = await self.api.async_get_sensors()
                 data["sensors"] = sensors_data.get("sensors", [])
                 self._cached_sensors = data["sensors"]
@@ -264,6 +268,12 @@ class CrestronDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                             
         except Exception as err:
             _LOGGER.error("Error cleaning up phantom scenes: %s", err)
+
+    async def async_force_sensor_refresh(self) -> None:
+        """Force an immediate sensor poll, bypassing the interval timer and poll_sensors setting."""
+        self._force_sensor_poll = True
+        self._last_sensor_poll = 0.0
+        await self.async_request_refresh()
 
     async def async_set_light_state(self, light_id: int, level: int, time: int = 0) -> None:
         """Set the state of a light."""

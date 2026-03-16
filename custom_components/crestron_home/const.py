@@ -31,3 +31,6 @@ SCENE_TYPE_LIGHT: Final = "Lighting"
 SCENE_TYPE_GENERIC_IO: Final = "genericIO"
 
 MAX_BRIGHTNESS: Final = 65535
+
+CONF_ENABLE_WEBHOOK: Final = "enable_webhook"
+WEBHOOK_ID: Final = "crestron_home_sensor_update"

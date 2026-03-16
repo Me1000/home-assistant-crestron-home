@@ -23,5 +23,22 @@
     "abort": {
       "already_configured": "Crestron Home system is already configured"
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "description": "**Webhook for instant sensor updates:**\n`{webhook_url}`\nConfigure your Crestron system to send a POST request to this URL to trigger an immediate sensor refresh.",
+        "data": {
+          "host": "Host (IP address or hostname)",
+          "api_token": "API Token",
+          "general_polling_interval": "General Polling Interval (seconds)",
+          "sensor_polling_interval": "Sensor Polling Interval (seconds)",
+          "poll_sensors": "Poll Sensor State",
+          "import_media_scenes": "Import Media Scenes",
+          "import_light_scenes": "Import Light Scenes",
+          "import_generic_io_scenes": "Import GenericIO Scenes"
+        }
+      }
+    }
   }
 }

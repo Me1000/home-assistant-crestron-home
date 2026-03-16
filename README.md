@@ -9,6 +9,7 @@ This repo was coded almost entirely by Claude Code. I didn't really review it at
 - **Light Control**: Control Crestron Home lights including dimmers and switches
 - **Occupancy Sensors**: Monitor room occupancy through Crestron occupancy sensors
 - **Photo Sensors**: Access light level data from Crestron photo sensors
+- **Webhook for Instant Updates**: Configure Crestron to send a webhook for immediate sensor state refreshes instead of waiting for the next poll
 - **Local Polling**: Direct local communication with your Crestron Home system
 - **Configuration UI**: Easy setup through Home Assistant's configuration interface
 
@@ -93,6 +94,19 @@ automation:
       data:
         brightness: 255
 ```
+
+## Webhook for Instant Sensor Updates
+
+Instead of relying solely on polling, you can configure your Crestron system to send a webhook to Home Assistant whenever a sensor state changes (e.g., motion detected). This triggers an immediate sensor refresh.
+
+**Webhook URL:**
+```
+http://<your-HA-IP>:8123/api/webhook/crestron_home_sensor_update
+```
+
+Send a POST, PUT, or GET request to this URL from your Crestron system. No authentication is required — the webhook ID acts as the secret.
+
+The webhook URL is also displayed in the integration's options page for easy copying.
 
 ## Development
 

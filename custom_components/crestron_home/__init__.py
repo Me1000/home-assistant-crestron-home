@@ -4,6 +4,8 @@ from __future__ import annotations
 import logging
 
 import voluptuous as vol
+from aiohttp.web import Request, Response
+from homeassistant.components import webhook
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.const import CONF_HOST, Platform
@@ -11,7 +13,7 @@ from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import device_registry as dr, config_validation as cv
 
-from .const import DOMAIN
+from .const import DOMAIN, CONF_ENABLE_WEBHOOK, WEBHOOK_ID
 from .coordinator import CrestronDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
@@ -64,13 +66,52 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         schema=SERVICE_SET_MEDIA_ROOM_SCHEMA,
     )
 
+    # Register webhook for immediate sensor updates
+    enable_webhook = entry.options.get(
+        CONF_ENABLE_WEBHOOK, entry.data.get(CONF_ENABLE_WEBHOOK, True)
+    )
+    if enable_webhook:
+        webhook.async_register(
+            hass,
+            DOMAIN,
+            "Crestron Sensor Update",
+            WEBHOOK_ID,
+            handle_webhook,
+            allowed_methods=["POST", "PUT", "GET"],
+        )
+        _LOGGER.info(
+            "Crestron webhook registered. URL: /api/webhook/%s", WEBHOOK_ID
+        )
+
     entry.async_on_unload(entry.add_update_listener(async_options_updated))
 
     return True
 
 
+async def handle_webhook(
+    hass: HomeAssistant, webhook_id: str, request: Request
+) -> Response:
+    """Handle incoming webhook from Crestron."""
+    _LOGGER.debug("Received Crestron webhook, forcing sensor refresh")
+
+    coordinators = hass.data.get(DOMAIN, {})
+    if not coordinators:
+        return Response(text="No coordinator", status=404)
+
+    for coordinator in coordinators.values():
+        await coordinator.async_force_sensor_refresh()
+
+    return Response(text="OK", status=200)
+
+
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
+    enable_webhook = entry.options.get(
+        CONF_ENABLE_WEBHOOK, entry.data.get(CONF_ENABLE_WEBHOOK, True)
+    )
+    if enable_webhook:
+        webhook.async_unregister(hass, WEBHOOK_ID)
+
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
         hass.data[DOMAIN].pop(entry.entry_id)
 
